@@ -1,5 +1,7 @@
 import { Reducer } from "redux";
 
+import { TodosAction } from '../actions/todoActions'
+
 interface Todo {
   id: number;
   desc: string;
@@ -31,10 +33,7 @@ const initialState: TodosState = {
   ],
 };
 
-type TodosAction = {
-  type: "ADD_TODO" | "TOGGLE_TODO" | "REMOVE_TODO" | "EDIT_TODO";
-  payload: Todo;
-};
+
 
 export const todosReducer: Reducer<TodosState, TodosAction> = (
   state = initialState,

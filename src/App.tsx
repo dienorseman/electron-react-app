@@ -34,14 +34,6 @@ const App = () => {
   const handleEditSubmit = (todo: any) => {
     return (e: any) => {
       e.preventDefault();
-      dispatch({
-        type: "EDIT_TODO",
-        payload: {
-          id: todo.id,
-          desc: todo.desc,
-          completed: todo.completed,
-        },
-      });
       setEditedTodoId("");
     };
   };
