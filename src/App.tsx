@@ -13,7 +13,12 @@ const App = () => {
 
   const todoListRef = useRef<HTMLUListElement>(null);
 
+  const [isEditing, setIsEditing] = useState(false);
+
   const [editedTodoId, setEditedTodoId] = useState("");
+
+  // error 
+  const [error, setError] = useState("");
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -34,7 +39,13 @@ const App = () => {
   const handleEditSubmit = (todo: any) => {
     return (e: any) => {
       e.preventDefault();
+      // validate if the input is empty
+      if (e.target[0].value === "") {
+        setError("Please enter a value");
+        return;
+      }
       setEditedTodoId("");
+      setIsEditing(false);
     };
   };
 
@@ -55,6 +66,7 @@ const App = () => {
   };
 
   const handleEdit = (todo: any) => {
+    setIsEditing(true);
     if (todo.completed) return;
     setEditedTodoId(todo.id);
   };
@@ -100,13 +112,19 @@ const App = () => {
               </form>
 
               <div className="btn-container">
-                <button onClick={() => handleDelete(todo)}>
+                <button onClick={() => handleDelete(todo)}
+                  disabled={isEditing}
+                >
                   <FontAwesomeIcon icon={faTrashAlt} />
                 </button>
-                <button onClick={() => handleComplete(todo)}>
+                <button onClick={() => handleComplete(todo)}
+                  disabled={isEditing}
+                >
                   <FontAwesomeIcon icon={faCheck} />
                 </button>
-                <button onClick={() => handleEdit(todo)}>
+                <button onClick={() => handleEdit(todo)}
+                  disabled={isEditing}
+                >
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
               </div>
